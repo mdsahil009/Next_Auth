@@ -14,8 +14,12 @@ export  async function middleware(request: NextRequest) {
         url.pathname.startsWith('/') ||
         url.pathname.startsWith('/verify')
     )){
-        return NextResponse.redirect(new URL('/home', request.url))
+        return NextResponse.redirect(new URL('/dashboard', request.url))
     }
+    if(!token && url.pathname.startsWith('/dashboard')) {
+      return NextResponse.redirect(new URL('/signin', request.url));      
+    }
+
 
   return NextResponse.redirect(new URL('/home', request.url))
 }
