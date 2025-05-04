@@ -34,19 +34,15 @@ export const authOptions: NextAuthOptions = {
                         return user
                     }else {
                         throw new Error("Invalid Password")
-                    }
-
-
-                    
+                    }             
                 } catch (err:any) {
                     throw new Error(err.message)
                 }
-
               }
         })
     ],
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user } : any) {
             if(user) {
                 token._id = user._id?.toString()
                 token.isVerified = user.isVerified;
@@ -56,7 +52,7 @@ export const authOptions: NextAuthOptions = {
 
             return token
         },
-        async session({ session, token }) {
+        async session({ session, token } : any) {
             if (token) {
                 session.user._id = token._id
                 session.user.isVerified = token.isVerified
